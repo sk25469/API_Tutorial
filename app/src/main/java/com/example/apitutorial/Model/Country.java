@@ -1,11 +1,12 @@
 package com.example.apitutorial.Model;
 
 public class Country {
-    private String countryName, capitalName, region, subregion, population, borders, languages;
+    private String countryName, capitalName, region, subregion, population, borders, languages, countryCode;
     private String flagUrl;
 
     public Country(String countryName, String capitalName, String region, String subregion, String population,
                                 String languages, String borders, String flagUrl){
+
         this.borders = borders;
         this.capitalName = capitalName;
         this.countryName = countryName;

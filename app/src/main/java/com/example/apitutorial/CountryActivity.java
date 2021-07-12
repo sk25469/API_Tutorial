@@ -14,17 +14,17 @@ import java.util.ArrayList;
 
 public class CountryActivity extends AppCompatActivity {
 
-    Country country1 = new Country("India", "New Delhi", "Asia", "Southern Asia", "120 Crores"
-            , "Hindi, English", "PAK, CHINA", "https://restcountries.eu/data/ind.svg");
-
-    Country country2 = new Country("Sri Lanka", "Kathmandu", "Asia", "Southern Asia", "50 Crores"
-            , "Hindi, English, Tamil", "INDIA", "https://restcountries.eu/data/lka.svg");
-
-    Country country3 = new Country("Bangladesh", "I dont know", "Asia", "Southern Asia", "60 Crores"
-            , "Hindi, English, Bengali", "Myanmar", "https://restcountries.eu/data/bgd.svg");
-
-    Country country4 = new Country("Pakistan", "Islamabad", "Asia", "Southern Asia", "55 Crores"
-            , "Hindi, English, Urdu", "INDIA", "https://restcountries.eu/data/pak.svg");
+//    Country country1 = new Country("India", "New Delhi", "Asia", "Southern Asia", "120 Crores"
+//            , "Hindi, English", "PAK, CHINA", "https://restcountries.eu/data/ind.svg");
+//
+//    Country country2 = new Country("Sri Lanka", "Kathmandu", "Asia", "Southern Asia", "50 Crores"
+//            , "Hindi, English, Tamil", "INDIA", "https://restcountries.eu/data/lka.svg");
+//
+//    Country country3 = new Country("Bangladesh", "I dont know", "Asia", "Southern Asia", "60 Crores"
+//            , "Hindi, English, Bengali", "Myanmar", "https://restcountries.eu/data/bgd.svg");
+//
+//    Country country4 = new Country("Pakistan", "Islamabad", "Asia", "Southern Asia", "55 Crores"
+//            , "Hindi, English, Urdu", "INDIA", "https://restcountries.eu/data/pak.svg");
     ArrayList<Country> countryArrayList = new ArrayList<>();
 
     private TextView countryName, capitalName, region, subregion, population, borders, languages;
@@ -47,8 +47,8 @@ public class CountryActivity extends AppCompatActivity {
 
         String country_bundle = getIntent().getStringExtra("country_name");
 
-        countryArrayList.add(country1);
-        countryArrayList.add(country2); countryArrayList.add(country3); countryArrayList.add(country4);
+//        countryArrayList.add(country1);
+//        countryArrayList.add(country2); countryArrayList.add(country3); countryArrayList.add(country4);
 
         for(Country countries : countryArrayList){
             if(countries.getCountryName().equals(country_bundle)){

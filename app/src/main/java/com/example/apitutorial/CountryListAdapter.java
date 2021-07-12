@@ -55,7 +55,7 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
         return countryList.size();
     }
 
-    public class CountryListViewHolder extends RecyclerView.ViewHolder {
+    public static class CountryListViewHolder extends RecyclerView.ViewHolder {
         public TextView mCountryName;
         public LinearLayout mLayout;
 
