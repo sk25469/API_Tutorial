@@ -9,9 +9,6 @@ import java.io.Serializable;
 @Entity
 public class Data implements Serializable {
 
-    @PrimaryKey(autoGenerate = false)
-    private String countryCode;
-
     @ColumnInfo(name = "country_name")
     private String countryName;
 
@@ -49,10 +46,6 @@ public class Data implements Serializable {
         this.countryBorder = countryBorder;
     }
 
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
-    }
-
 
     public void setCountryLang(String countryLang) {
         this.countryLang = countryLang;
@@ -84,10 +77,6 @@ public class Data implements Serializable {
 
     public String getCountryBorder() {
         return countryBorder;
-    }
-
-    public String getCountryCode() {
-        return countryCode;
     }
 
     public String getCountryLang() {

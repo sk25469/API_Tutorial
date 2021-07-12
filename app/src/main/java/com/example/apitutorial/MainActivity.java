@@ -2,12 +2,15 @@ package com.example.apitutorial;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.content.AsyncTaskLoader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -15,6 +18,8 @@ import android.widget.Toast;
 import com.example.apitutorial.Model.Country;
 import com.example.apitutorial.RequestAPI.Result;
 import com.example.apitutorial.RequestAPI.RetrofitClient;
+import com.example.apitutorial.Room.Data;
+import com.example.apitutorial.Room.DatabaseClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,18 +35,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter mCountryListAdapter;
 
     ArrayList<Country> countryList;
-
-//    Country country1 = new Country("India", "New Delhi", "Asia", "Southern Asia", "120 Crores"
-//            , "Hindi, English", "PAK, CHINA", "https://restcountries.eu/data/ind.svg");
-//
-//    Country country2 = new Country("Sri Lanka", "Kathmandu", "Asia", "Southern Asia", "50 Crores"
-//            , "Hindi, English, Tamil", "INDIA", "https://restcountries.eu/data/lka.svg");
-//
-//    Country country3 = new Country("Bangladesh", "I dont know", "Asia", "Southern Asia", "60 Crores"
-//            , "Hindi, English, Bengali", "Myanmar", "https://restcountries.eu/data/bgd.svg");
-//
-//    Country country4 = new Country("Pakistan", "Islamabad", "Asia", "Southern Asia", "55 Crores"
-//            , "Hindi, English, Urdu", "INDIA", "https://restcountries.eu/data/pak.svg");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
