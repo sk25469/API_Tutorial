@@ -1,25 +1,21 @@
 package com.example.apitutorial;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.loader.content.AsyncTaskLoader;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.apitutorial.Model.Country;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.apitutorial.RequestAPI.Result;
 import com.example.apitutorial.RequestAPI.RetrofitClient;
 import com.example.apitutorial.Room.Data;
-import com.example.apitutorial.Room.DatabaseClient;
+import com.example.apitutorial.Room.DatabaseRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView.Adapter mCountryListAdapter;
 
-    ArrayList<Country> countryList;
+    ArrayList<Data> countryList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         initializeRecyclerView();
         getCountryDetails();
+        visitAllAndStore();
     }
 
     private boolean isNetworkAvailable() {
@@ -67,13 +64,16 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<List<Result>> call, @NonNull Response<List<Result>> response) {
                 List<Result> countryDetail = response.body();
                 assert countryDetail != null;
-                Log.d(TAG, String.valueOf(countryDetail.size())) ;
+                Log.d(TAG, String.valueOf(countryDetail.size()));
 
                 for (Result res : countryDetail) {
+
+                    Log.d(TAG, "Country name " + res.getCountryName());
 
                     ArrayList<Result.LangObject> lang = new ArrayList<>(res.getLanguages());
 
                     StringBuilder languages = new StringBuilder();
+
                     for (int j = 0; j < lang.size(); j++) {
                         Log.d(TAG, "Value of lang is " + lang.get(j).getLang());
                         languages.append(lang.get(j).getLang()).append(", ");
@@ -85,11 +85,11 @@ public class MainActivity extends AppCompatActivity {
                     for (int j = 0; j < borders.size(); j++) {
                         bord.append(borders.get(j)).append(", ");
                     }
-                    Country country = new Country( res.getCountryName(),
+                    Data data = new Data(res.getCountryName(),
                             res.getCountryCapital(), res.getRegion(), res.getSubregion(),
                             res.getPopulation(), languages.toString(), bord.toString(), res.getFlagUrl());
 
-                    countryList.add(country);
+                    countryList.add(data);
                 }
 
 
@@ -102,6 +102,23 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+    }
+
+    private void storeDetails(String countryName, String capitalName, String region, String subregion, String population,
+                              String language, String borders, String flagUrl) {
+
+        DatabaseRepository databaseRepository = new DatabaseRepository(this);
+        databaseRepository.insertTask(countryName, capitalName, region, subregion, population, language, borders, flagUrl);
+
+    }
+
+    private void visitAllAndStore() {
+        for (Data data : countryList) {
+            Log.d(TAG, "Visiting country " + data.getCountryName());
+            storeDetails(data.getCountryName(), data.getCapitalName(), data.getRegionName()
+                    , data.getSubregion(), data.getPopulation(), data.getCountryLang(), data.getCountryBorder()
+                    , data.getFlagUrl());
+        }
     }
 
     private void initializeRecyclerView() {

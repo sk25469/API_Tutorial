@@ -2,7 +2,6 @@ package com.example.apitutorial.Room;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
@@ -32,6 +31,22 @@ public class Data implements Serializable {
 
     @ColumnInfo(name = "flag")
     private String flagUrl;
+
+    public Data(String countryName, String capitalName, String region, String subregion, String population,
+                String countryLang, String countryBorder, String flagUrl) {
+
+        this.countryBorder = countryBorder;
+        this.capitalName = capitalName;
+        this.countryName = countryName;
+        this.population = population;
+        this.region = region;
+        this.subregion = subregion;
+        this.countryLang = countryLang;
+        this.flagUrl = flagUrl;
+    }
+
+    public Data() {
+    }
 
 
     public void setCountryName(String countryName) {

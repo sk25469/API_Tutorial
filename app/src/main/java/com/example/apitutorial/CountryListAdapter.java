@@ -11,16 +11,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.apitutorial.Model.Country;
+import com.example.apitutorial.Room.Data;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.CountryListViewHolder> {
 
-    ArrayList<Country> countryList;
+    ArrayList<Data> countryList;
 
-    public CountryListAdapter(ArrayList<Country> countryList){
+    public CountryListAdapter(ArrayList<Data> countryList) {
         this.countryList = countryList;
     }
 

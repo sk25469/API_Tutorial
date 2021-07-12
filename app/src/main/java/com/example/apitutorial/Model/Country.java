@@ -5,7 +5,7 @@ public class Country {
     private String flagUrl;
 
     public Country(String countryName, String capitalName, String region, String subregion, String population,
-                                String languages, String borders, String flagUrl){
+                   String languages, String borders, String flagUrl) {
 
         this.borders = borders;
         this.capitalName = capitalName;
@@ -14,7 +14,7 @@ public class Country {
         this.region = region;
         this.subregion = subregion;
         this.languages = languages;
-        this.flagUrl =flagUrl;
+        this.flagUrl = flagUrl;
     }
 
     public void setFlagUrl(String flagUrl) {

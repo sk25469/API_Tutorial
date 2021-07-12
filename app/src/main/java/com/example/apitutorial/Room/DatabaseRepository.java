@@ -8,14 +8,11 @@ import androidx.room.Room;
 
 public class DatabaseRepository {
 
-    private String DB_NAME = "db_task";
-
-    private CountryDatabase countryDatabase;
+    private final CountryDatabase countryDatabase;
     public DatabaseRepository(Context context) {
+        String DB_NAME = "db_task";
         countryDatabase = Room.databaseBuilder(context, CountryDatabase.class, DB_NAME).build();
     }
-
-
 
     public void insertTask(String countryName, String capitalName, String region, String subregion, String population,
                            String language, String border, String flagUrl) {
