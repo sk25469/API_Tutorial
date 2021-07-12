@@ -1,12 +1,11 @@
 package com.example.apitutorial.Model;
 
-import java.util.ArrayList;
-
 public class Country {
-    String countryName, capitalName, region, subregion, population, borders, languages, flag;
+    private String countryName, capitalName, region, subregion, population, borders, languages;
+    private String flagUrl;
 
     public Country(String countryName, String capitalName, String region, String subregion, String population,
-                                String languages, String borders, String flag){
+                                String languages, String borders, String flagUrl){
         this.borders = borders;
         this.capitalName = capitalName;
         this.countryName = countryName;
@@ -14,11 +13,11 @@ public class Country {
         this.region = region;
         this.subregion = subregion;
         this.languages = languages;
-        this.flag =flag;
+        this.flagUrl =flagUrl;
     }
 
-    public void setFlag(String flag) {
-        this.flag = flag;
+    public void setFlagUrl(String flagUrl) {
+        this.flagUrl = flagUrl;
     }
 
     public void setBorders(String borders) {
@@ -77,7 +76,7 @@ public class Country {
         return subregion;
     }
 
-    public String getFlag() {
-        return flag;
+    public String getFlagUrl() {
+        return flagUrl;
     }
 }

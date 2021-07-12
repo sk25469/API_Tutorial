@@ -1,6 +1,7 @@
 package com.example.apitutorial;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apitutorial.Model.Country;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.CountryListViewHolder> {
@@ -40,6 +42,9 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
         holder.mCountryName.setText(countryList.get(position).getCountryName());
         holder.mLayout.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), CountryActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("country_name",countryList.get(position).getCountryName());
+            intent.putExtras(bundle);
             v.getContext().startActivity(intent);
         });
 
