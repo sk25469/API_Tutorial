@@ -2,11 +2,15 @@ package com.example.apitutorial.Room;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
 @Entity
 public class Data implements Serializable {
+
+    @PrimaryKey(autoGenerate = true)
+    private int countryId;
 
     @ColumnInfo(name = "country_name")
     private String countryName;
@@ -48,6 +52,13 @@ public class Data implements Serializable {
     public Data() {
     }
 
+    public int getCountryId() {
+        return countryId;
+    }
+
+    public void setCountryId(int countryId) {
+        this.countryId = countryId;
+    }
 
     public void setCountryName(String countryName) {
         this.countryName = countryName;
@@ -115,4 +126,11 @@ public class Data implements Serializable {
         return subregion;
     }
 
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
 }

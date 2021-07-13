@@ -3,6 +3,7 @@ package com.example.apitutorial;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -45,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "Network is unavailable");
 
         initializeRecyclerView();
-        getCountryDetails();
 //        visitAllAndStore();
     }
 
@@ -54,6 +54,16 @@ public class MainActivity extends AppCompatActivity {
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+
+    private class AgentAsyncTask extends AsyncTask<Void, Void, Integer> {
+
+        @Override
+        protected Integer doInBackground(Void... voids) {
+            getCountryDetails();
+            return null;
+        }
     }
 
     private void getCountryDetails() {
