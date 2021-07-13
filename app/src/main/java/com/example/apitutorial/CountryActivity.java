@@ -35,6 +35,7 @@ public class CountryActivity extends AppCompatActivity {
 
         DatabaseRepository databaseRepository = new DatabaseRepository(this);
         Data data = databaseRepository.getTask(country_bundle);
+//        Log.d(String.valueOf(getApplicationContext()), "Country name is " + data.getCountryName())  ;
         displayInfo(data);
 
     }

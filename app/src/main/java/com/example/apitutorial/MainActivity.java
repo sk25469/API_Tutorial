@@ -3,7 +3,6 @@ package com.example.apitutorial;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -17,6 +16,7 @@ import com.example.apitutorial.Model.Country;
 import com.example.apitutorial.RequestAPI.LangObject;
 import com.example.apitutorial.RequestAPI.Result;
 import com.example.apitutorial.RequestAPI.RetrofitClient;
+import com.example.apitutorial.Room.Data;
 import com.example.apitutorial.Room.DatabaseRepository;
 
 import java.util.ArrayList;
@@ -46,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "Network is unavailable");
 
         initializeRecyclerView();
-//        visitAllAndStore();
+        getCountryDetails();
+        visitAllAndStore();
     }
 
     private boolean isNetworkAvailable() {
@@ -54,16 +55,6 @@ public class MainActivity extends AppCompatActivity {
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
-
-
-    private class AgentAsyncTask extends AsyncTask<Void, Void, Integer> {
-
-        @Override
-        protected Integer doInBackground(Void... voids) {
-            getCountryDetails();
-            return null;
-        }
     }
 
     private void getCountryDetails() {
@@ -83,12 +74,12 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG, "Country name " + res.getCountryName());
 
                     ArrayList<LangObject> lang = new ArrayList<>(res.getLanguages());
-                    Log.d(TAG, "Value of lang at pos 0 is " + lang.get(0).getLang());
+//                    Log.d(TAG, "Value of lang at pos 0 is " + lang.get(0).getLang());
 
                     StringBuilder languages = new StringBuilder();
 
                     for (int j = 0; j < lang.size(); j++) {
-                        Log.d(TAG, "Value of lang is " + lang.get(j).getLang());
+//                        Log.d(TAG, "Value of lang is " + lang.get(j).getLang());
                         languages.append(lang.get(j).getLang()).append(", ");
                     }
 
@@ -96,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
                     StringBuilder bord = new StringBuilder();
                     for (int j = 0; j < borders.size(); j++) {
-                        Log.d(TAG, "Value of borders is " + borders.get(j));
+//                        Log.d(TAG, "Value of borders is " + borders.get(j));
                         bord.append(borders.get(j)).append(", ");
                     }
                     Country country = new Country(res.getCountryName(),
@@ -107,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
 
                 }
                 mCountryListAdapter.notifyDataSetChanged();
-
 
             }
 
@@ -124,7 +114,9 @@ public class MainActivity extends AppCompatActivity {
                               String language, String borders, String flagUrl) {
 
         DatabaseRepository databaseRepository = new DatabaseRepository(this);
-        databaseRepository.insertTask(countryName, capitalName, region, subregion, population, language, borders, flagUrl);
+        databaseRepository.insertCountry(countryName, capitalName, region, subregion, population, language, borders, flagUrl);
+        Data data = new Data(countryName, capitalName, region, subregion, population, language, borders, flagUrl);
+        databaseRepository.insertTask(data);
 
     }
 
@@ -135,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
                     , country.getSubregion(), country.getPopulation(), country.getCountryName(), country.getBorders()
                     , country.getFlagUrl());
         }
+        mCountryListAdapter.notifyDataSetChanged();
     }
 
     private void initializeRecyclerView() {

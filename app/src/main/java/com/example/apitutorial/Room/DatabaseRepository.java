@@ -14,8 +14,8 @@ public class DatabaseRepository {
         countryDatabase = Room.databaseBuilder(context, CountryDatabase.class, DB_NAME).build();
     }
 
-    public void insertTask(String countryName, String capitalName, String region, String subregion, String population,
-                           String language, String border, String flagUrl) {
+    public void insertCountry(String countryName, String capitalName, String region, String subregion, String population,
+                              String language, String border, String flagUrl) {
 
         Data data = new Data();
         data.setCapitalName(capitalName);
