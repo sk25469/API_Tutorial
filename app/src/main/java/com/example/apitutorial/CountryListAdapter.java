@@ -11,15 +11,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.apitutorial.Room.Data;
+import com.example.apitutorial.Model.Country;
 
 import java.util.ArrayList;
 
 public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.CountryListViewHolder> {
 
-    ArrayList<Data> countryList;
+    ArrayList<Country> countryList;
 
-    public CountryListAdapter(ArrayList<Data> countryList) {
+    public CountryListAdapter(ArrayList<Country> countryList) {
         this.countryList = countryList;
     }
 
@@ -38,7 +38,9 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull CountryListAdapter.CountryListViewHolder holder, int position) {
+
         holder.mCountryName.setText(countryList.get(position).getCountryName());
+
         holder.mLayout.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), CountryActivity.class);
             Bundle bundle = new Bundle();

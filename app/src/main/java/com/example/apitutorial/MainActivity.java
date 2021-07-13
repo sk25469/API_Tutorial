@@ -12,9 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.apitutorial.Model.Country;
+import com.example.apitutorial.RequestAPI.LangObject;
 import com.example.apitutorial.RequestAPI.Result;
 import com.example.apitutorial.RequestAPI.RetrofitClient;
-import com.example.apitutorial.Room.Data;
 import com.example.apitutorial.Room.DatabaseRepository;
 
 import java.util.ArrayList;
@@ -30,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView.Adapter mCountryListAdapter;
 
-    ArrayList<Data> countryList;
+    ArrayList<Country> countryList;
+    ArrayList<Country> tempList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         initializeRecyclerView();
         getCountryDetails();
-        visitAllAndStore();
+//        visitAllAndStore();
     }
 
     private boolean isNetworkAvailable() {
@@ -70,7 +72,8 @@ public class MainActivity extends AppCompatActivity {
 
                     Log.d(TAG, "Country name " + res.getCountryName());
 
-                    ArrayList<Result.LangObject> lang = new ArrayList<>(res.getLanguages());
+                    ArrayList<LangObject> lang = new ArrayList<>(res.getLanguages());
+                    Log.d(TAG, "Value of lang at pos 0 is " + lang.get(0).getLang());
 
                     StringBuilder languages = new StringBuilder();
 
@@ -83,14 +86,17 @@ public class MainActivity extends AppCompatActivity {
 
                     StringBuilder bord = new StringBuilder();
                     for (int j = 0; j < borders.size(); j++) {
+                        Log.d(TAG, "Value of borders is " + borders.get(j));
                         bord.append(borders.get(j)).append(", ");
                     }
-                    Data data = new Data(res.getCountryName(),
-                            res.getCountryCapital(), res.getRegion(), res.getSubregion(),
+                    Country country = new Country(res.getCountryName(),
+                            res.getCountryCapital(), res.getRegion(), res.getRegion(),
                             res.getPopulation(), languages.toString(), bord.toString(), res.getFlagUrl());
 
-                    countryList.add(data);
+                    countryList.add(country);
+
                 }
+                mCountryListAdapter.notifyDataSetChanged();
 
 
             }
@@ -113,11 +119,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void visitAllAndStore() {
-        for (Data data : countryList) {
-            Log.d(TAG, "Visiting country " + data.getCountryName());
-            storeDetails(data.getCountryName(), data.getCapitalName(), data.getRegionName()
-                    , data.getSubregion(), data.getPopulation(), data.getCountryLang(), data.getCountryBorder()
-                    , data.getFlagUrl());
+        for (Country country : countryList) {
+            Log.d(TAG, "Visiting country " + country.getCountryName());
+            storeDetails(country.getCountryName(), country.getCapitalName(), country.getRegion()
+                    , country.getSubregion(), country.getPopulation(), country.getCountryName(), country.getBorders()
+                    , country.getFlagUrl());
         }
     }
 
@@ -125,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
         countryList = new ArrayList<>();
 
-        RecyclerView mCountryList = findViewById(R.id.recycler_view);
+        RecyclerView mCountryList = findViewById(R.id.country_list);
 
         mCountryList.setNestedScrollingEnabled(false); /* to make a seamless scrolling **/
 

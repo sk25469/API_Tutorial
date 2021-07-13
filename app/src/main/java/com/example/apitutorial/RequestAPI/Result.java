@@ -55,22 +55,6 @@ public class Result {
 
     }
 
-    public static class LangObject {
-
-        String lang, faltu1, faltu2, faltu4;
-
-        public LangObject(String faltu1, String faltu2, String lang, String faltu4){
-            this.faltu1 = faltu1;
-            this.faltu2 = faltu2;
-            this.lang = lang;
-            this.faltu4 = faltu4;
-        }
-
-        public String getLang() {
-            return lang;
-        }
-    }
-
     public String getFlagUrl() {
         return flagUrl;
     }
