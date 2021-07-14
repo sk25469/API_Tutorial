@@ -21,6 +21,7 @@ public class DatabaseRepository {
                               String language, String border, String flagUrl) {
 
         Country country = new Country();
+
         country.setCapitalName(capitalName);
         country.setCountryName(countryName);
         country.setRegion(region);
