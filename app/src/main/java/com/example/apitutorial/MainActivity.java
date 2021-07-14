@@ -89,8 +89,8 @@ public class MainActivity extends AppCompatActivity {
                         bord.append(borders.get(j)).append(", ");
                     }
                     Country country = new Country(res.getCountryName(),
-                            res.getCountryCapital(), res.getRegion(), res.getRegion(),
-                            res.getPopulation(), languages.toString(), bord.toString(), res.getFlagUrl());
+                            res.getCountryCapital(), res.getRegion(), res.getSubregion(),
+                            res.getPopulation(), bord.toString(), languages.toString(), res.getFlagUrl());
 
                     countryList.add(country);
 
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                               String language, String borders, String flagUrl) {
 
         DatabaseRepository databaseRepository = new DatabaseRepository(this);
-        databaseRepository.insertCountry(countryName, capitalName, region, subregion, population, language, borders, flagUrl);
+        databaseRepository.insertCountry(countryName, capitalName, region, subregion, population, borders, language, flagUrl);
 
     }
 
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         for (Country country : countryList) {
             Log.d(TAG, "Visiting country " + country.getCountryName());
             storeDetails(country.getCountryName(), country.getCapitalName(), country.getRegion()
-                    , country.getSubregion(), country.getPopulation(), country.getCountryName(), country.getCountryBorder()
+                    , country.getSubregion(), country.getPopulation(), country.getCountryLang(), country.getCountryBorder()
                     , country.getFlagUrl());
         }
         mCountryListAdapter.notifyDataSetChanged();
