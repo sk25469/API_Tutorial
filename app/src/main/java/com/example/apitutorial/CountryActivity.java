@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.example.apitutorial.Room.Data;
+import com.example.apitutorial.Model.Country;
 import com.example.apitutorial.Room.DatabaseRepository;
 
 public class CountryActivity extends AppCompatActivity {
@@ -31,26 +31,26 @@ public class CountryActivity extends AppCompatActivity {
         languages = findViewById(R.id.country_lang);
         flag = findViewById(R.id.country_flag);
 
-        String country_bundle = getIntent().getStringExtra("country_name");
+        Country country = (Country) getIntent().getSerializableExtra("country");
 
         DatabaseRepository databaseRepository = new DatabaseRepository(this);
-        Data data = databaseRepository.getTask(country_bundle);
+        databaseRepository.getCountry(country.getCountryName());
 //        Log.d(String.valueOf(getApplicationContext()), "Country name is " + data.getCountryName())  ;
-        displayInfo(data);
+        displayInfo(country);
 
     }
 
-    private void displayInfo(Data data) {
-        countryName.setText(data.getCountryName());
-        capitalName.setText(data.getCapitalName());
-        region.setText(data.getRegionName());
-        subregion.setText(data.getSubregion());
-        population.setText(data.getPopulation());
-        borders.setText(data.getCountryBorder());
-        languages.setText(data.getCountryLang());
+    private void displayInfo(Country country) {
+        countryName.setText(country.getCountryName());
+        capitalName.setText(country.getCapitalName());
+        region.setText(country.getRegion());
+        subregion.setText(country.getSubregion());
+        population.setText(country.getPopulation());
+        borders.setText(country.getCountryBorder());
+        languages.setText(country.getCountryLang());
 
         Glide.with(this)
-                .load(data.getFlagUrl())
+                .load(country.getFlagUrl())
                 .error(R.mipmap.ic_launcher)
                 .placeholder(R.mipmap.ic_launcher)
                 .into(flag);

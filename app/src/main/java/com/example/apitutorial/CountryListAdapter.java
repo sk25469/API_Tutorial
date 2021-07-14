@@ -44,7 +44,7 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
         holder.mLayout.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), CountryActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putString("country_name",countryList.get(position).getCountryName());
+            bundle.putSerializable("country", countryList.get(position));
             intent.putExtras(bundle);
             v.getContext().startActivity(intent);
         });

@@ -1,19 +1,22 @@
 package com.example.apitutorial.Room;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
+import com.example.apitutorial.Model.Country;
+
 @Dao
 public interface DatabaseDao {
 
-    @Query("SELECT * FROM data WHERE country_name = :name")
-    Data getCountry(String name);
-
     @Insert
-    void insertCountry(Data data);
+    void insertCountry(Country country);
 
-    @Query("DELETE FROM data")
+    @Query("SELECT * FROM country WHERE country_name = :name")
+    LiveData<Country> getCountry(String name);
+
+    @Query("DELETE FROM country")
     void nukeTable();
 
 

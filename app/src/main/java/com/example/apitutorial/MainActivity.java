@@ -16,7 +16,6 @@ import com.example.apitutorial.Model.Country;
 import com.example.apitutorial.RequestAPI.LangObject;
 import com.example.apitutorial.RequestAPI.Result;
 import com.example.apitutorial.RequestAPI.RetrofitClient;
-import com.example.apitutorial.Room.Data;
 import com.example.apitutorial.Room.DatabaseRepository;
 
 import java.util.ArrayList;
@@ -33,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter mCountryListAdapter;
 
     ArrayList<Country> countryList;
-    ArrayList<Country> tempList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,8 +113,6 @@ public class MainActivity extends AppCompatActivity {
 
         DatabaseRepository databaseRepository = new DatabaseRepository(this);
         databaseRepository.insertCountry(countryName, capitalName, region, subregion, population, language, borders, flagUrl);
-        Data data = new Data(countryName, capitalName, region, subregion, population, language, borders, flagUrl);
-        databaseRepository.insertTask(data);
 
     }
 
@@ -124,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         for (Country country : countryList) {
             Log.d(TAG, "Visiting country " + country.getCountryName());
             storeDetails(country.getCountryName(), country.getCapitalName(), country.getRegion()
-                    , country.getSubregion(), country.getPopulation(), country.getCountryName(), country.getBorders()
+                    , country.getSubregion(), country.getPopulation(), country.getCountryName(), country.getCountryBorder()
                     , country.getFlagUrl());
         }
         mCountryListAdapter.notifyDataSetChanged();

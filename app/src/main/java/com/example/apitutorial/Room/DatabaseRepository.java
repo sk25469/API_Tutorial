@@ -4,7 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Room;
+
+import com.example.apitutorial.Model.Country;
 
 public class DatabaseRepository {
 
@@ -17,29 +20,31 @@ public class DatabaseRepository {
     public void insertCountry(String countryName, String capitalName, String region, String subregion, String population,
                               String language, String border, String flagUrl) {
 
-        Data data = new Data();
-        data.setCapitalName(capitalName);
-        data.setCountryName(countryName);
-        data.setRegionName(region);
-        data.setSubregion(subregion);
-        data.setPopulation(population);
-        data.setCountryBorder(border);
-        data.setCountryLang(language);
-        data.setFlagUrl(flagUrl);
+        Country country = new Country();
+        country.setCapitalName(capitalName);
+        country.setCountryName(countryName);
+        country.setRegion(region);
+        country.setSubregion(subregion);
+        country.setPopulation(population);
+        country.setCountryBorder(border);
+        country.setCountryLang(language);
+        country.setFlagUrl(flagUrl);
+
+        insertCountry(country);
     }
 
     @SuppressLint("StaticFieldLeak")
-    public void insertTask(final Data data) {
+    public void insertCountry(final Country country) {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                countryDatabase.databaseDao().insertCountry(data);
+                countryDatabase.databaseDao().insertCountry(country);
                 return null;
             }
         }.execute();
     }
 
-    public Data getTask(String id) {
+    public LiveData<Country> getCountry(String id) {
         return countryDatabase.databaseDao().getCountry(id);
     }
 }
